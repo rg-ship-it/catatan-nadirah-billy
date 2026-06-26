@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -311,6 +310,18 @@
     .btn-yellow{ background:linear-gradient(135deg, #fef3c7, #facc15); }
     .btn-purple{ background:linear-gradient(135deg, #e9d5ff, #c084fc); }
 
+    .btn-prev-month{
+      background:linear-gradient(135deg, #dbeafe, #60a5fa, #2563eb);
+      border-color:rgba(37,99,235,.45);
+      color:#06122b;
+    }
+
+    .btn-next-month{
+      background:linear-gradient(135deg, #dcfce7, #4ade80, #16a34a);
+      border-color:rgba(22,163,74,.45);
+      color:#052e16;
+    }
+
     .form{
       padding:18px;
       display:grid;
@@ -605,9 +616,9 @@
     <section class="panel">
       <div class="panel-head">
         <div class="month-control">
-          <button type="button" onclick="changeMonth(-1)">← Bulan Sebelumnya</button>
+          <button type="button" class="btn-prev-month" onclick="changeMonth(-1)">← Bulan Sebelumnya</button>
           <div class="month-title" id="monthTitle"></div>
-          <button type="button" onclick="changeMonth(1)">Bulan Berikutnya →</button>
+          <button type="button" class="btn-next-month" onclick="changeMonth(1)">Bulan Berikutnya →</button>
           <button type="button" class="btn-blue" onclick="goToday()">Hari Ini</button>
         </div>
       </div>
