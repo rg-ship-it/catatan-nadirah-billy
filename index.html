@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -762,11 +763,46 @@
 
   <div class="toast" id="toast"></div>
 
-  <script>
-    const STORAGE_KEY = "catatan_keuangan_premium_v3";
+  <script type="module">
+    /*
+      FIREBASE LIVE MODE
+      1) Buka Firebase Console > Project settings > Your apps > Web app
+      2) Copy firebaseConfig lalu ganti bagian di bawah ini.
+      3) Firestore collection yang dipakai: finance_transactions
+    */
 
-    let transactions = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      setDoc,
+      doc,
+      deleteDoc,
+      getDocs,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDIynJCkKlBN0oHyqrPXppnEWahYGNJsZY",
+      authDomain: "dedy-b7d09.firebaseapp.com",
+      projectId: "dedy-b7d09",
+      storageBucket: "dedy-b7d09.firebasestorage.app",
+      messagingSenderId: "908999792372",
+      appId: "1:908999792372:web:7ef11e8e6ad87ec242f0a1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const financeRef = collection(db, "finance_transactions");
+
+    let transactions = [];
     let editingId = null;
+    let unsubscribeLive = null;
 
     const now = new Date();
     let currentMonth = now.getMonth();
@@ -790,15 +826,32 @@
       }).format(Number(num || 0));
     }
 
-    function saveLocal(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
-    }
-
     function showToast(text){
       const toast = document.getElementById("toast");
       toast.textContent = text;
       toast.style.display = "block";
-      setTimeout(() => toast.style.display = "none", 2300);
+      setTimeout(() => toast.style.display = "none", 2600);
+    }
+
+    function setLiveStatus(text, ok=true){
+      let el = document.getElementById("liveStatus");
+      if(!el){
+        el = document.createElement("div");
+        el.id = "liveStatus";
+        el.style.padding = "10px 14px";
+        el.style.borderRadius = "999px";
+        el.style.fontWeight = "950";
+        el.style.border = "1px solid rgba(0,0,0,.25)";
+        el.style.background = ok
+          ? "linear-gradient(135deg,#bbf7d0,#22c55e)"
+          : "linear-gradient(135deg,#fecdd3,#fb7185)";
+        const head = document.querySelector(".panel-head");
+        head.appendChild(el);
+      }
+      el.textContent = text;
+      el.style.background = ok
+        ? "linear-gradient(135deg,#bbf7d0,#22c55e)"
+        : "linear-gradient(135deg,#fecdd3,#fb7185)";
     }
 
     function monthName(month, year){
@@ -817,16 +870,25 @@
       return `${currentYear}-${String(currentMonth+1).padStart(2,"0")}`;
     }
 
-    function saveTransaction(e){
+    function cleanTransactionData(item){
+      return {
+        date: item.date,
+        monthKey: getMonthKey(item.date),
+        type: item.type,
+        desc: item.desc,
+        amount: Number(item.amount || 0),
+        updatedAt: serverTimestamp()
+      };
+    }
+
+    async function saveTransaction(e){
       e.preventDefault();
 
       const item = {
-        id: editingId || crypto.randomUUID(),
         date: dateInput.value,
         type: typeInput.value,
         desc: descInput.value.trim(),
-        amount: Number(amountInput.value || 0),
-        createdAt: new Date().toISOString()
+        amount: Number(amountInput.value || 0)
       };
 
       if(!item.desc || item.amount <= 0){
@@ -834,31 +896,59 @@
         return;
       }
 
-      if(editingId){
-        transactions = transactions.map(t => t.id === editingId ? item : t);
-        showToast("Data berhasil diedit.");
-      }else{
-        transactions.push(item);
-        showToast("Data berhasil ditambahkan.");
+      try{
+        if(editingId){
+          await setDoc(doc(db, "finance_transactions", editingId), cleanTransactionData(item), { merge:true });
+          showToast("Data live berhasil diedit.");
+        }else{
+          await addDoc(financeRef, {
+            ...cleanTransactionData(item),
+            createdAt: serverTimestamp()
+          });
+          showToast("Data live berhasil ditambahkan.");
+        }
+
+        editingId = null;
+        saveBtn.textContent = "Tambah";
+        saveBtn.className = "btn-green";
+        descInput.value = "";
+        amountInput.value = "";
+        dateInput.valueAsDate = new Date();
+      }catch(error){
+        console.error(error);
+        showToast("Firebase error: cek config / rules Firestore.");
+        setLiveStatus("Firebase error", false);
       }
+    }
 
-      editingId = null;
-      saveBtn.textContent = "Tambah";
-      saveBtn.className = "btn-green";
+    function listenCurrentMonth(){
+      if(unsubscribeLive) unsubscribeLive();
 
-      descInput.value = "";
-      amountInput.value = "";
-      dateInput.valueAsDate = new Date();
+      document.getElementById("monthTitle").textContent = monthName(currentMonth, currentYear);
+      setLiveStatus("Menghubungkan Firebase...", true);
 
-      saveLocal();
-      render();
+      const q = query(
+        financeRef,
+        where("monthKey", "==", activeMonthKey()),
+        orderBy("date", "asc")
+      );
+
+      unsubscribeLive = onSnapshot(q, (snapshot) => {
+        transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
+        render();
+        setLiveStatus("LIVE Firebase aktif", true);
+      }, (error) => {
+        console.error(error);
+        setLiveStatus("Firebase belum tersambung", false);
+        showToast("Gagal baca Firebase. Cek firebaseConfig dan Firestore Rules.");
+      });
     }
 
     function render(){
       document.getElementById("monthTitle").textContent = monthName(currentMonth, currentYear);
 
-      const list = transactions
-        .filter(t => getMonthKey(t.date) === activeMonthKey())
+      const list = [...transactions]
+        .filter(t => t.monthKey ? t.monthKey === activeMonthKey() : getMonthKey(t.date) === activeMonthKey())
         .sort((a,b) => new Date(a.date) - new Date(b.date));
 
       financeBody.innerHTML = "";
@@ -866,23 +956,17 @@
 
       let income = 0;
       let expense = 0;
-      let saving = 0;
       let runningTotal = 0;
 
       list.forEach(t => {
         if(t.type === "PEMASUKAN"){
-          income += t.amount;
-          runningTotal += t.amount;
+          income += Number(t.amount || 0);
+          runningTotal += Number(t.amount || 0);
         }
 
         if(t.type === "PENGELUARAN"){
-          expense += t.amount;
-          runningTotal -= t.amount;
-        }
-
-        if(t.type === "TABUNGAN"){
-          saving += t.amount;
-          runningTotal -= t.amount;
+          expense += Number(t.amount || 0);
+          runningTotal -= Number(t.amount || 0);
         }
 
         const d = new Date(t.date + "T00:00:00");
@@ -902,10 +986,8 @@
         let typeClass = "";
         if(t.type === "PEMASUKAN") typeClass = "type-income";
         if(t.type === "PENGELUARAN") typeClass = "type-expense";
-        if(t.type === "TABUNGAN") typeClass = "type-saving";
 
         const tr = document.createElement("tr");
-
         tr.innerHTML = `
           <td>${tanggal}</td>
           <td>${bulan}</td>
@@ -927,12 +1009,11 @@
 
       document.getElementById("sumIncome").textContent = rupiah(income);
       document.getElementById("sumExpense").textContent = rupiah(expense);
-      document.getElementById("sumBalance").textContent = rupiah(income - expense - saving);
-      document.getElementById("sumSaving").textContent = rupiah(saving);
+      document.getElementById("sumBalance").textContent = rupiah(income - expense);
     }
 
     function escapeHTML(str){
-      return String(str)
+      return String(str || "")
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
@@ -949,38 +1030,38 @@
       typeInput.value = item.type;
       descInput.value = item.desc;
       amountInput.value = item.amount;
-
       saveBtn.textContent = "Simpan Edit";
       saveBtn.className = "btn-yellow";
-
       window.scrollTo({top:260, behavior:"smooth"});
     }
 
-    function deleteItem(id){
+    async function deleteItem(id){
       const item = transactions.find(t => t.id === id);
       if(!item) return;
 
-      const yakin = confirm(`Hapus data ini?\n\n${item.type} - ${item.desc} - ${rupiah(item.amount)}`);
+      const yakin = confirm(`Hapus data live ini?\n\n${item.type} - ${item.desc} - ${rupiah(item.amount)}\n\nData akan hilang untuk semua orang.`);
       if(!yakin) return;
 
-      transactions = transactions.filter(t => t.id !== id);
-      saveLocal();
-      render();
-      showToast("Data berhasil dihapus.");
+      try{
+        await deleteDoc(doc(db, "finance_transactions", id));
+        showToast("Data live berhasil dihapus.");
+      }catch(error){
+        console.error(error);
+        showToast("Gagal hapus data Firebase.");
+      }
     }
 
     async function copyItem(id){
       const item = transactions.find(t => t.id === id);
       if(!item) return;
-
       const text = `${item.date}\t${item.type}\t${item.desc}\t${item.amount}`;
       await navigator.clipboard.writeText(text);
       showToast("1 data berhasil dicopy.");
     }
 
     async function copyTable(){
-      const list = transactions
-        .filter(t => getMonthKey(t.date) === activeMonthKey())
+      const list = [...transactions]
+        .filter(t => t.monthKey ? t.monthKey === activeMonthKey() : getMonthKey(t.date) === activeMonthKey())
         .sort((a,b) => new Date(a.date) - new Date(b.date));
 
       if(!list.length){
@@ -989,18 +1070,15 @@
       }
 
       let text = "Tanggal\tJenis\tKeterangan\tJumlah\n";
-
       list.forEach(t => {
         text += `${t.date}\t${t.type}\t${t.desc}\t${t.amount}\n`;
       });
-
       await navigator.clipboard.writeText(text);
       showToast("Tabel bulan ini berhasil dicopy.");
     }
 
-    function pasteData(){
+    async function pasteData(){
       const raw = document.getElementById("pasteInput").value.trim();
-
       if(!raw){
         showToast("Paste data dulu bos.");
         return;
@@ -1009,58 +1087,51 @@
       const lines = raw.split(/\n+/);
       let added = 0;
 
-      lines.forEach(line => {
+      for(const line of lines){
         const parts = line.split(/\t|,/).map(x => x.trim());
-
-        if(parts.length < 4) return;
+        if(parts.length < 4) continue;
 
         const date = normalizeDate(parts[0]);
         const type = parts[1].toUpperCase();
         const desc = parts[2];
         const amount = Number(String(parts[3]).replace(/[^\d]/g,""));
 
-        if(!date) return;
-        if(!["PEMASUKAN","PENGELUARAN","TABUNGAN"].includes(type)) return;
-        if(!desc || amount <= 0) return;
+        if(!date) continue;
+        if(!["PEMASUKAN","PENGELUARAN"].includes(type)) continue;
+        if(!desc || amount <= 0) continue;
 
-        transactions.push({
-          id: crypto.randomUUID(),
+        await addDoc(financeRef, {
           date,
+          monthKey:getMonthKey(date),
           type,
           desc,
           amount,
-          createdAt:new Date().toISOString()
+          createdAt:serverTimestamp(),
+          updatedAt:serverTimestamp()
         });
-
         added++;
-      });
+      }
 
-      saveLocal();
-      render();
       document.getElementById("pasteInput").value = "";
-      showToast(`${added} data berhasil dipaste.`);
+      showToast(`${added} data berhasil dipaste ke Firebase.`);
     }
 
     function normalizeDate(value){
       value = String(value).trim();
-
       if(/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-
       const match = value.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
-
       if(match){
         const day = match[1].padStart(2,"0");
         const month = match[2].padStart(2,"0");
         const year = match[3];
         return `${year}-${month}-${day}`;
       }
-
       return null;
     }
 
     function downloadCSV(){
-      const list = transactions
-        .filter(t => getMonthKey(t.date) === activeMonthKey())
+      const list = [...transactions]
+        .filter(t => t.monthKey ? t.monthKey === activeMonthKey() : getMonthKey(t.date) === activeMonthKey())
         .sort((a,b) => new Date(a.date) - new Date(b.date));
 
       if(!list.length){
@@ -1069,7 +1140,6 @@
       }
 
       let csv = "Tanggal,Jenis,Keterangan,Jumlah\n";
-
       list.forEach(t => {
         csv += `"${t.date}","${t.type}","${String(t.desc).replaceAll('"','""')}","${t.amount}"\n`;
       });
@@ -1077,52 +1147,55 @@
       const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-
       a.href = url;
       a.download = `catatan-keuangan-${activeMonthKey()}.csv`;
       a.click();
-
       URL.revokeObjectURL(url);
     }
 
-    function clearMonth(){
-      const yakin = confirm(`Hapus semua data bulan ${monthName(currentMonth, currentYear)}?`);
+    async function clearMonth(){
+      const yakin = confirm(`Hapus semua data LIVE bulan ${monthName(currentMonth, currentYear)}?\n\nData akan hilang untuk semua orang.`);
       if(!yakin) return;
 
-      transactions = transactions.filter(t => getMonthKey(t.date) !== activeMonthKey());
-
-      saveLocal();
-      render();
-      showToast("Data bulan ini berhasil dihapus.");
+      try{
+        const q = query(financeRef, where("monthKey", "==", activeMonthKey()));
+        const snapshot = await getDocs(q);
+        const deletes = snapshot.docs.map(d => deleteDoc(doc(db, "finance_transactions", d.id)));
+        await Promise.all(deletes);
+        showToast("Data live bulan ini berhasil dihapus.");
+      }catch(error){
+        console.error(error);
+        showToast("Gagal hapus bulan ini dari Firebase.");
+      }
     }
 
     function changeMonth(step){
       currentMonth += step;
-
-      if(currentMonth < 0){
-        currentMonth = 11;
-        currentYear--;
-      }
-
-      if(currentMonth > 11){
-        currentMonth = 0;
-        currentYear++;
-      }
-
-      render();
+      if(currentMonth < 0){ currentMonth = 11; currentYear--; }
+      if(currentMonth > 11){ currentMonth = 0; currentYear++; }
+      listenCurrentMonth();
     }
 
     function goToday(){
       const today = new Date();
-
       currentMonth = today.getMonth();
       currentYear = today.getFullYear();
       dateInput.valueAsDate = today;
-
-      render();
+      listenCurrentMonth();
     }
 
-    render();
+    window.saveTransaction = saveTransaction;
+    window.editItem = editItem;
+    window.deleteItem = deleteItem;
+    window.copyItem = copyItem;
+    window.copyTable = copyTable;
+    window.pasteData = pasteData;
+    window.downloadCSV = downloadCSV;
+    window.clearMonth = clearMonth;
+    window.changeMonth = changeMonth;
+    window.goToday = goToday;
+
+    listenCurrentMonth();
   </script>
 </body>
 </html>
