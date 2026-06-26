@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -650,6 +652,370 @@
     button{
       border-color:rgba(136,19,71,.28) !important;
     }
+
+
+    /* === MOBILE FULL RESPONSIVE VERSION BY JARVIS === */
+    html{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
+    }
+
+    body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden !important;
+      touch-action:manipulation;
+    }
+
+    .app{
+      width:100%;
+      max-width:1280px;
+    }
+
+    .topbar{
+      grid-template-columns:repeat(3, 1fr);
+    }
+
+    .panel-head,
+    .month-control,
+    .form,
+    .tools,
+    .paste-box{
+      width:100%;
+    }
+
+    .form{
+      align-items:stretch;
+    }
+
+    .table-wrap{
+      max-width:100%;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+    }
+
+    .table-wrap::before{
+      content:"Geser tabel ke kanan/kiri jika diperlukan";
+      display:none;
+      padding:10px 14px;
+      color:#2b0011;
+      font-size:12px;
+      font-weight:950;
+      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,211,227,.8));
+      border-bottom:1px solid rgba(136,19,71,.18);
+    }
+
+    .actions button{
+      min-width:78px;
+    }
+
+    @media(max-width:950px){
+      .app{max-width:100%;}
+      .hero{
+        grid-template-columns:1fr !important;
+        gap:16px;
+      }
+      .topbar{
+        grid-template-columns:repeat(3, 1fr) !important;
+        gap:10px;
+      }
+      .box{
+        padding:14px;
+        border-radius:20px;
+      }
+      .box small{
+        font-size:10.5px;
+        line-height:1.35;
+      }
+      .box strong{
+        font-size:clamp(17px, 4vw, 26px);
+        word-break:break-word;
+      }
+      .form{
+        grid-template-columns:1fr 1fr !important;
+      }
+      .form input:nth-child(3),
+      .form input:nth-child(4),
+      .form button{
+        grid-column:1 / -1;
+      }
+      .panel-head{
+        gap:12px;
+      }
+      .month-control{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+      .month-title{
+        grid-column:1 / -1;
+        order:-1;
+        min-width:0;
+        width:100%;
+      }
+      .month-control button{
+        width:100%;
+      }
+    }
+
+    @media(max-width:680px){
+      body{
+        padding:8px !important;
+        background-attachment:fixed;
+      }
+
+      .hero{
+        padding:14px !important;
+        border-radius:22px !important;
+      }
+
+      .badge{
+        font-size:11px;
+        padding:7px 10px;
+        margin-bottom:10px;
+      }
+
+      .hero h1{
+        font-size:28px !important;
+        line-height:1.05;
+        letter-spacing:-.7px;
+      }
+
+      .hero p{
+        font-size:13px;
+        line-height:1.55;
+      }
+
+      .hero-img-wrap{
+        border-radius:20px;
+      }
+
+      .hero-img{
+        height:160px !important;
+        border-radius:18px;
+      }
+
+      .topbar{
+        grid-template-columns:1fr !important;
+        margin-top:12px;
+      }
+
+      .box{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        min-height:76px;
+      }
+
+      .box small{
+        margin-bottom:0;
+        max-width:48%;
+      }
+
+      .box strong{
+        text-align:right;
+        max-width:52%;
+      }
+
+      .panel{
+        margin-top:12px;
+        border-radius:22px;
+      }
+
+      .panel-head{
+        padding:12px;
+      }
+
+      .month-control{
+        grid-template-columns:1fr !important;
+      }
+
+      .month-title{
+        font-size:15px;
+        padding:10px 12px;
+        border-radius:14px;
+      }
+
+      button,
+      input,
+      select,
+      textarea{
+        min-height:46px;
+        font-size:15px;
+        border-radius:14px;
+      }
+
+      button{
+        padding:11px 12px;
+      }
+
+      .form{
+        padding:12px;
+        grid-template-columns:1fr !important;
+        gap:10px;
+      }
+
+      .form input,
+      .form select,
+      .form button{
+        grid-column:auto !important;
+      }
+
+      .table-wrap::before{
+        display:block;
+      }
+
+      table{
+        min-width:0 !important;
+        width:100%;
+        border-collapse:separate;
+        border-spacing:0 12px;
+        padding:0 10px 10px;
+      }
+
+      thead{
+        display:none;
+      }
+
+      tbody,
+      tr,
+      td{
+        display:block;
+        width:100%;
+      }
+
+      tbody tr{
+        border:1px solid rgba(136,19,71,.24);
+        border-radius:18px;
+        overflow:hidden;
+        box-shadow:0 12px 30px rgba(185,28,92,.18);
+        background:rgba(255,255,255,.55);
+      }
+
+      td{
+        min-height:44px;
+        padding:11px 12px 11px 43% !important;
+        position:relative;
+        text-align:right;
+        border-bottom:1px solid rgba(136,19,71,.15) !important;
+        word-break:break-word;
+      }
+
+      td:last-child{
+        border-bottom:none !important;
+        padding-left:12px !important;
+      }
+
+      td::before{
+        position:absolute;
+        left:12px;
+        top:11px;
+        width:36%;
+        text-align:left;
+        font-size:11px;
+        line-height:1.3;
+        text-transform:uppercase;
+        letter-spacing:.5px;
+        color:#2b0011;
+        font-weight:950;
+      }
+
+      td:nth-child(1)::before{content:"Tanggal";}
+      td:nth-child(2)::before{content:"Bulan";}
+      td:nth-child(3)::before{content:"Jenis";}
+      td:nth-child(4)::before{content:"Keterangan";}
+      td:nth-child(5)::before{content:"Jumlah";}
+      td:nth-child(6)::before{content:"Total";}
+      td:nth-child(7)::before{content:"Aksi";}
+
+      .actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+        margin-top:4px;
+      }
+
+      .actions button{
+        width:100%;
+        min-width:0;
+      }
+
+      .empty{
+        padding:24px 12px;
+        font-size:14px;
+      }
+
+      .tools{
+        padding:12px;
+      }
+
+      .paste-box{
+        padding:13px;
+        border-radius:18px;
+      }
+
+      .paste-box h3{
+        font-size:17px;
+      }
+
+      .paste-box p{
+        font-size:12.5px;
+      }
+
+      textarea{
+        min-height:130px;
+      }
+
+      .toast{
+        left:10px;
+        right:10px;
+        bottom:12px;
+        text-align:center;
+        font-size:14px;
+      }
+
+      #liveStatus{
+        width:100%;
+        text-align:center;
+        font-size:12px;
+      }
+    }
+
+    @media(max-width:380px){
+      .hero h1{
+        font-size:24px !important;
+      }
+      .box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .box small,
+      .box strong{
+        max-width:100%;
+        text-align:left;
+      }
+      td{
+        padding-left:12px !important;
+        padding-top:33px !important;
+        text-align:left;
+      }
+      td::before{
+        width:auto;
+        right:12px;
+      }
+    }
+
+
+    /* Status Firebase disembunyikan, sistem live tetap berjalan */
+    #liveStatus{
+      display:none !important;
+    }
+
+    /* === END MOBILE FULL RESPONSIVE VERSION === */
+
     /* === END CUSTOM EDIT === */
 
   </style>
@@ -702,9 +1068,6 @@
         </div>
 
         <div class="month-control">
-          <button class="btn-green" onclick="copyTable()">Copy Tabel</button>
-          <button class="btn-yellow" onclick="downloadCSV()">Download CSV</button>
-          <button class="btn-red" onclick="clearMonth()">Hapus Bulan Ini</button>
         </div>
       </div>
 
@@ -834,24 +1197,9 @@
     }
 
     function setLiveStatus(text, ok=true){
-      let el = document.getElementById("liveStatus");
-      if(!el){
-        el = document.createElement("div");
-        el.id = "liveStatus";
-        el.style.padding = "10px 14px";
-        el.style.borderRadius = "999px";
-        el.style.fontWeight = "950";
-        el.style.border = "1px solid rgba(0,0,0,.25)";
-        el.style.background = ok
-          ? "linear-gradient(135deg,#bbf7d0,#22c55e)"
-          : "linear-gradient(135deg,#fecdd3,#fb7185)";
-        const head = document.querySelector(".panel-head");
-        head.appendChild(el);
-      }
-      el.textContent = text;
-      el.style.background = ok
-        ? "linear-gradient(135deg,#bbf7d0,#22c55e)"
-        : "linear-gradient(135deg,#fecdd3,#fb7185)";
+      // Status Firebase sengaja disembunyikan dari tampilan.
+      // Koneksi live tetap berjalan lewat onSnapshot di fungsi listenCurrentMonth().
+      console.log(text);
     }
 
     function monthName(month, year){
