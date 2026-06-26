@@ -1,13 +1,10 @@
 
-
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catatan Keuangan Premium - Pink Metallic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Catatan Keuangan Premium - Live Firebase</title>
 
   <style>
     :root{
@@ -27,8 +24,13 @@
       --radius:24px;
     }
 
-    *{
-      box-sizing:border-box;
+    *{ box-sizing:border-box; }
+
+    html{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
     }
 
     body{
@@ -37,19 +39,17 @@
       font-family:Inter, Arial, Helvetica, sans-serif;
       color:#000;
       padding:22px;
+      overflow-x:hidden !important;
+      touch-action:manipulation;
+      font-weight:900;
       background:
         radial-gradient(circle at 8% 12%, rgba(255,255,255,.95) 0 3px, transparent 4px),
-        radial-gradient(circle at 22% 35%, rgba(255,255,255,.85) 0 2px, transparent 3px),
-        radial-gradient(circle at 38% 18%, rgba(255,255,255,.9) 0 3px, transparent 4px),
-        radial-gradient(circle at 62% 28%, rgba(255,255,255,.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 22% 35%, rgba(255,240,246,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 38% 18%, rgba(255,255,255,.92) 0 3px, transparent 4px),
+        radial-gradient(circle at 62% 28%, rgba(255,228,236,.9) 0 2px, transparent 3px),
         radial-gradient(circle at 78% 12%, rgba(255,255,255,.95) 0 3px, transparent 4px),
-        radial-gradient(circle at 90% 45%, rgba(255,255,255,.75) 0 2px, transparent 3px),
-        radial-gradient(circle at 14% 72%, rgba(255,255,255,.85) 0 2px, transparent 3px),
-        radial-gradient(circle at 48% 82%, rgba(255,255,255,.95) 0 3px, transparent 4px),
-        radial-gradient(circle at 84% 78%, rgba(255,255,255,.8) 0 2px, transparent 3px),
-        linear-gradient(135deg, #dff5ff 0%, #7cc8ff 28%, #2b84d6 55%, #0d4f91 100%);
-      overflow-x:hidden;
-      font-weight:900;
+        radial-gradient(circle at 90% 45%, rgba(255,214,230,.82) 0 2px, transparent 3px),
+        linear-gradient(135deg, #fff1f7 0%, #ffd1df 18%, #ff94b6 42%, #e85786 68%, #b91c5c 100%);
     }
 
     body::before{
@@ -58,14 +58,8 @@
       inset:0;
       pointer-events:none;
       background:
-        linear-gradient(120deg, rgba(255,255,255,.35), transparent 30%, rgba(255,255,255,.18) 55%, transparent 75%),
-        repeating-linear-gradient(
-          135deg,
-          rgba(255,255,255,.08) 0px,
-          rgba(255,255,255,.08) 2px,
-          transparent 2px,
-          transparent 9px
-        );
+        linear-gradient(120deg, rgba(255,255,255,.55), transparent 26%, rgba(255,255,255,.22) 54%, transparent 74%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.15) 0px, rgba(255,255,255,.15) 2px, transparent 2px, transparent 9px);
       z-index:-2;
     }
 
@@ -76,7 +70,7 @@
       height:520px;
       right:-180px;
       top:120px;
-      background:radial-gradient(circle, rgba(255,255,255,.32), transparent 68%);
+      background:radial-gradient(circle, rgba(255,255,255,.48), rgba(255,182,203,.25), transparent 68%);
       filter:blur(22px);
       z-index:-1;
       animation:floatGlow 7s ease-in-out infinite alternate;
@@ -88,6 +82,7 @@
     }
 
     .app{
+      width:100%;
       max-width:1280px;
       margin:auto;
     }
@@ -99,9 +94,9 @@
       gap:22px;
       align-items:center;
       background:
-        linear-gradient(135deg, rgba(224,242,254,.92), rgba(186,230,253,.72)),
-        linear-gradient(135deg, rgba(255,255,255,.5), rgba(56,189,248,.26));
-      border:1px solid rgba(0,0,0,.18);
+        linear-gradient(135deg, rgba(255,241,247,.96), rgba(255,199,219,.84), rgba(255,143,181,.68)),
+        linear-gradient(120deg, rgba(255,255,255,.65), rgba(255,105,160,.22));
+      border:1px solid rgba(136, 19, 71, .28);
       border-radius:32px;
       padding:24px;
       box-shadow:var(--shadow);
@@ -130,8 +125,8 @@
       gap:8px;
       padding:8px 13px;
       border-radius:999px;
-      background:rgba(255,255,255,.65);
-      border:1px solid rgba(0,0,0,.18);
+      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,218,232,.72));
+      border:1px solid rgba(136,19,71,.28);
       color:#000;
       font-size:13px;
       font-weight:950;
@@ -143,8 +138,8 @@
       width:8px;
       height:8px;
       border-radius:50%;
-      background:#0ea5e9;
-      box-shadow:0 0 18px #0ea5e9;
+      background:#ff4f93;
+      box-shadow:0 0 18px #ff4f93;
     }
 
     .hero h1{
@@ -170,8 +165,8 @@
       position:relative;
       border-radius:26px;
       padding:2px;
-      background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(56,189,248,.85), rgba(14,165,233,.8));
-      box-shadow:0 24px 70px rgba(0,0,0,.35);
+      background:linear-gradient(135deg, #fff, #ffd1df, #ff6fa3, #b91c5c);
+      box-shadow:0 24px 70px rgba(185,28,92,.38);
     }
 
     .hero-img{
@@ -187,14 +182,14 @@
     .topbar{
       margin-top:20px;
       display:grid;
-      grid-template-columns:repeat(4, 1fr);
+      grid-template-columns:repeat(3, 1fr);
       gap:16px;
     }
 
     .box{
       position:relative;
-      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(186,230,253,.72));
-      border:1px solid rgba(0,0,0,.18);
+      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,215,229,.76), rgba(255,160,194,.42));
+      border:1px solid rgba(136,19,71,.26);
       border-radius:var(--radius);
       padding:18px;
       box-shadow:0 18px 50px rgba(0,0,0,.28);
@@ -217,7 +212,6 @@
     .income::after{background:var(--green)}
     .expense::after{background:var(--red)}
     .balance::after{background:var(--gold)}
-    .saving::after{background:var(--purple)}
 
     .box small{
       display:block;
@@ -239,8 +233,8 @@
 
     .panel{
       margin-top:20px;
-      background:rgba(225, 244, 255, .9);
-      border:1px solid rgba(0,0,0,.18);
+      background:rgba(255,232,241,.92);
+      border:1px solid rgba(136,19,71,.26);
       border-radius:30px;
       box-shadow:var(--shadow);
       overflow:hidden;
@@ -255,7 +249,7 @@
       justify-content:space-between;
       align-items:center;
       border-bottom:1px solid rgba(0,0,0,.18);
-      background:linear-gradient(90deg, rgba(255,255,255,.75), rgba(125,211,252,.72), rgba(255,255,255,.72));
+      background:linear-gradient(90deg, rgba(255,255,255,.78), rgba(255,202,221,.82), rgba(255,255,255,.74));
     }
 
     .month-control{
@@ -263,6 +257,7 @@
       gap:10px;
       align-items:center;
       flex-wrap:wrap;
+      width:100%;
     }
 
     .month-title{
@@ -272,8 +267,8 @@
       border-radius:16px;
       font-weight:950;
       font-size:17px;
-      color:#000;
-      background:linear-gradient(135deg, #e0f2fe, #7dd3fc);
+      color:#21000d;
+      background:linear-gradient(135deg, #fff1f7, #ff9fbd, #ff6fa3);
       border:1px solid rgba(0,0,0,.22);
       box-shadow:inset 0 0 18px rgba(255,255,255,.35);
     }
@@ -291,8 +286,8 @@
       padding:11px 15px;
       font-weight:950;
       letter-spacing:.2px;
-      border:1px solid rgba(0,0,0,.22);
-      background:linear-gradient(135deg, rgba(255,255,255,.88), rgba(186,230,253,.72));
+      border:1px solid rgba(136,19,71,.28);
+      background:linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,218,232,.72));
       box-shadow:0 12px 28px rgba(0,0,0,.22);
       transition:.18s ease;
     }
@@ -310,30 +305,11 @@
       filter:none !important;
     }
 
-    .btn-green{
-      background:linear-gradient(135deg, #bbf7d0, #22c55e);
-      border-color:rgba(0,0,0,.28);
-    }
-
-    .btn-red{
-      background:linear-gradient(135deg, #fecdd3, #fb7185);
-      border-color:rgba(0,0,0,.28);
-    }
-
-    .btn-blue{
-      background:linear-gradient(135deg, #bae6fd, #38bdf8);
-      border-color:rgba(0,0,0,.28);
-    }
-
-    .btn-yellow{
-      background:linear-gradient(135deg, #fef3c7, #facc15);
-      border-color:rgba(0,0,0,.28);
-    }
-
-    .btn-purple{
-      background:linear-gradient(135deg, #e9d5ff, #c084fc);
-      border-color:rgba(0,0,0,.28);
-    }
+    .btn-green{ background:linear-gradient(135deg, #bbf7d0, #22c55e); }
+    .btn-red{ background:linear-gradient(135deg, #fecdd3, #fb7185); }
+    .btn-blue{ background:linear-gradient(135deg, #bae6fd, #38bdf8); }
+    .btn-yellow{ background:linear-gradient(135deg, #fef3c7, #facc15); }
+    .btn-purple{ background:linear-gradient(135deg, #e9d5ff, #c084fc); }
 
     .form{
       padding:18px;
@@ -341,26 +317,27 @@
       grid-template-columns:150px 160px 1fr 190px 135px;
       gap:12px;
       border-bottom:1px solid rgba(0,0,0,.18);
-      background:rgba(225, 244, 255, .88);
+      background:rgba(255,232,241,.9);
+      width:100%;
+      align-items:stretch;
     }
 
     input, select, textarea{
       width:100%;
       color:#000;
       background:rgba(255,255,255,.88);
-      border:1px solid rgba(0,0,0,.28);
+      border:1px solid rgba(136,19,71,.34);
       padding:13px 14px;
       font-weight:900;
       box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
     }
 
     input:focus, select:focus, textarea:focus{
-      border-color:rgba(14,165,233,.75);
-      box-shadow:0 0 0 4px rgba(14,165,233,.18);
+      border-color:rgba(255,79,147,.82);
+      box-shadow:0 0 0 4px rgba(255,79,147,.2);
     }
 
-    input::placeholder,
-    textarea::placeholder{
+    input::placeholder, textarea::placeholder{
       color:#333;
       font-weight:800;
     }
@@ -370,10 +347,30 @@
       resize:vertical;
     }
 
+    .form > :nth-child(1){ background:linear-gradient(135deg, #fff7ed, #fed7aa); }
+    .form > :nth-child(2){ background:linear-gradient(135deg, #f0fdf4, #bbf7d0); }
+    .form > :nth-child(3){ background:linear-gradient(135deg, #eff6ff, #bfdbfe); }
+    .form > :nth-child(4){ background:linear-gradient(135deg, #fdf2f8, #fbcfe8); }
+    .form > :nth-child(5){ background:linear-gradient(135deg, #fef9c3, #facc15); }
+
     .table-wrap{
       width:100%;
+      max-width:100%;
       overflow:auto;
-      background:rgba(225, 244, 255, .88);
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+      background:rgba(255,232,241,.9);
+    }
+
+    .table-wrap::before{
+      content:"Geser tabel ke kanan/kiri jika diperlukan";
+      display:none;
+      padding:10px 14px;
+      color:#2b0011;
+      font-size:12px;
+      font-weight:950;
+      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,211,227,.8));
+      border-bottom:1px solid rgba(136,19,71,.18);
     }
 
     table{
@@ -384,7 +381,7 @@
 
     th, td{
       padding:14px;
-      border-bottom:1px solid rgba(0,0,0,.18);
+      border-bottom:1px solid rgba(136,19,71,.18);
       text-align:left;
       vertical-align:middle;
       color:#000;
@@ -395,29 +392,31 @@
       position:sticky;
       top:0;
       z-index:2;
-      color:#000;
+      color:#2b0011;
       background:linear-gradient(135deg, #b9e8ff, #6ab9f4);
       font-size:12px;
       text-transform:uppercase;
       letter-spacing:.9px;
       font-weight:950;
+      border-bottom:2px solid rgba(136,19,71,.3);
     }
 
-    td{
-      background:rgba(255,255,255,.42);
-    }
-
-    tbody tr{
-      transition:.15s ease;
-    }
-
+    td{ background:rgba(255,255,255,.42); }
+    tbody tr{ transition:.15s ease; }
     tbody tr:hover td{
-      background:rgba(186,230,253,.75);
+      filter:brightness(1.06);
+      box-shadow:inset 0 0 0 9999px rgba(255,255,255,.16);
     }
 
-    .type-income,
-    .type-expense,
-    .type-saving{
+    thead th:nth-child(1), tbody td:nth-child(1){ background:linear-gradient(135deg, rgba(255,247,237,.96), rgba(254,215,170,.82)); }
+    thead th:nth-child(2), tbody td:nth-child(2){ background:linear-gradient(135deg, rgba(240,253,244,.96), rgba(187,247,208,.82)); }
+    thead th:nth-child(3), tbody td:nth-child(3){ background:linear-gradient(135deg, rgba(239,246,255,.96), rgba(191,219,254,.82)); }
+    thead th:nth-child(4), tbody td:nth-child(4){ background:linear-gradient(135deg, rgba(253,242,248,.96), rgba(251,207,232,.84)); }
+    thead th:nth-child(5), tbody td:nth-child(5){ background:linear-gradient(135deg, rgba(254,249,195,.96), rgba(253,224,71,.76)); }
+    thead th:nth-child(6), tbody td:nth-child(6){ background:linear-gradient(135deg, rgba(245,243,255,.96), rgba(221,214,254,.82)); }
+    thead th:nth-child(7), tbody td:nth-child(7){ background:linear-gradient(135deg, rgba(236,253,245,.96), rgba(167,243,208,.82)); }
+
+    .type-income, .type-expense{
       display:inline-block;
       padding:7px 10px;
       border-radius:999px;
@@ -426,24 +425,16 @@
       font-weight:950;
       border:1px solid rgba(0,0,0,.28);
     }
-
-    .type-income{
-      background:linear-gradient(135deg, #a7f3d0, #34d399);
-    }
-
-    .type-expense{
-      background:linear-gradient(135deg, #fecdd3, #fb7185);
-    }
-
-    .type-saving{
-      background:linear-gradient(135deg, #e9d5ff, #c084fc);
-    }
+    .type-income{ background:linear-gradient(135deg, #a7f3d0, #34d399); }
+    .type-expense{ background:linear-gradient(135deg, #fecdd3, #fb7185); }
 
     .actions{
       display:flex;
       gap:8px;
       flex-wrap:wrap;
     }
+
+    .actions button{ min-width:78px; }
 
     .empty{
       padding:35px;
@@ -458,11 +449,13 @@
       grid-template-columns:1fr;
       gap:14px;
       border-top:1px solid rgba(0,0,0,.18);
-      background:rgba(225, 244, 255, .88);
+      background:rgba(255,232,241,.9);
+      width:100%;
     }
 
     .paste-box{
-      background:linear-gradient(135deg, rgba(255,255,255,.75), rgba(186,230,253,.66));
+      width:100%;
+      background:linear-gradient(135deg, rgba(255,255,255,.82), rgba(255,211,227,.74), rgba(255,155,190,.45));
       border:1px solid rgba(0,0,0,.2);
       border-radius:22px;
       padding:16px;
@@ -484,10 +477,7 @@
       font-weight:900;
     }
 
-    .paste-box b{
-      color:#000;
-      font-weight:950;
-    }
+    .paste-box b{ color:#000; font-weight:950; }
 
     .toast{
       position:fixed;
@@ -496,440 +486,63 @@
       display:none;
       z-index:99;
       color:#000;
-      background:rgba(255,255,255,.92);
+      background:rgba(255,255,255,.94);
       border:1px solid rgba(0,0,0,.25);
       padding:14px 18px;
       border-radius:17px;
       box-shadow:0 20px 50px rgba(0,0,0,.35);
       backdrop-filter:blur(18px);
       font-weight:950;
+      max-width:calc(100vw - 24px);
     }
+
+    #liveStatus{ display:none !important; }
 
     @media(max-width:950px){
       body{padding:14px}
-      .hero{grid-template-columns:1fr}
-      .topbar{grid-template-columns:1fr 1fr}
-      .form{grid-template-columns:1fr}
-      .hero-img{height:215px}
-      .panel-head{align-items:stretch}
-      .month-control{width:100%; justify-content:center}
-    }
-
-    @media(max-width:560px){
-      body{padding:10px}
-      .hero{padding:18px; border-radius:24px}
-      .topbar{grid-template-columns:1fr}
-      button{width:100%}
-      .month-title{width:100%}
-      .hero-img{height:185px}
-    }
-
-    /* === CUSTOM EDIT: MERAH MUDA METALLIC + KOLOM BERBEDA WARNA === */
-    body{
-      background:
-        radial-gradient(circle at 8% 12%, rgba(255,255,255,.95) 0 3px, transparent 4px),
-        radial-gradient(circle at 22% 35%, rgba(255,240,246,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 38% 18%, rgba(255,255,255,.92) 0 3px, transparent 4px),
-        radial-gradient(circle at 62% 28%, rgba(255,228,236,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 78% 12%, rgba(255,255,255,.95) 0 3px, transparent 4px),
-        radial-gradient(circle at 90% 45%, rgba(255,214,230,.82) 0 2px, transparent 3px),
-        linear-gradient(135deg, #fff1f7 0%, #ffd1df 18%, #ff94b6 42%, #e85786 68%, #b91c5c 100%) !important;
-    }
-
-    body::before{
-      background:
-        linear-gradient(120deg, rgba(255,255,255,.55), transparent 26%, rgba(255,255,255,.22) 54%, transparent 74%),
-        repeating-linear-gradient(
-          135deg,
-          rgba(255,255,255,.15) 0px,
-          rgba(255,255,255,.15) 2px,
-          transparent 2px,
-          transparent 9px
-        ) !important;
-    }
-
-    body::after{
-      background:radial-gradient(circle, rgba(255,255,255,.48), rgba(255,182,203,.25), transparent 68%) !important;
-    }
-
-    .hero{
-      background:
-        linear-gradient(135deg, rgba(255,241,247,.96), rgba(255,199,219,.84), rgba(255,143,181,.68)),
-        linear-gradient(120deg, rgba(255,255,255,.65), rgba(255,105,160,.22)) !important;
-      border:1px solid rgba(136, 19, 71, .28) !important;
-    }
-
-    .hero-img-wrap{
-      background:linear-gradient(135deg, #fff, #ffd1df, #ff6fa3, #b91c5c) !important;
-      box-shadow:0 24px 70px rgba(185,28,92,.38) !important;
-    }
-
-    .badge{
-      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,218,232,.72)) !important;
-      border-color:rgba(136,19,71,.28) !important;
-    }
-
-    .badge span{
-      background:#ff4f93 !important;
-      box-shadow:0 0 18px #ff4f93 !important;
-    }
-
-    .box{
-      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,215,229,.76), rgba(255,160,194,.42)) !important;
-      border-color:rgba(136,19,71,.26) !important;
-    }
-
-    .panel{
-      background:rgba(255,232,241,.92) !important;
-      border-color:rgba(136,19,71,.26) !important;
-    }
-
-    .panel-head{
-      background:linear-gradient(90deg, rgba(255,255,255,.78), rgba(255,202,221,.82), rgba(255,255,255,.74)) !important;
-    }
-
-    .month-title{
-      background:linear-gradient(135deg, #fff1f7, #ff9fbd, #ff6fa3) !important;
-      color:#21000d !important;
-    }
-
-    .form,
-    .table-wrap,
-    .tools{
-      background:rgba(255,232,241,.9) !important;
-    }
-
-    .paste-box{
-      background:linear-gradient(135deg, rgba(255,255,255,.82), rgba(255,211,227,.74), rgba(255,155,190,.45)) !important;
-    }
-
-    input, select, textarea{
-      border-color:rgba(136,19,71,.34) !important;
-    }
-
-    input:focus, select:focus, textarea:focus{
-      border-color:rgba(255,79,147,.82) !important;
-      box-shadow:0 0 0 4px rgba(255,79,147,.2) !important;
-    }
-
-    /* Form input: tiap kolom beda warna */
-    .form > :nth-child(1){ background:linear-gradient(135deg, #fff7ed, #fed7aa) !important; }
-    .form > :nth-child(2){ background:linear-gradient(135deg, #f0fdf4, #bbf7d0) !important; }
-    .form > :nth-child(3){ background:linear-gradient(135deg, #eff6ff, #bfdbfe) !important; }
-    .form > :nth-child(4){ background:linear-gradient(135deg, #fdf2f8, #fbcfe8) !important; }
-    .form > :nth-child(5){ background:linear-gradient(135deg, #fef9c3, #facc15) !important; }
-
-    /* Tabel: setiap kolom dibuat warna berbeda supaya jelas */
-    thead th:nth-child(1), tbody td:nth-child(1){
-      background:linear-gradient(135deg, rgba(255,247,237,.96), rgba(254,215,170,.82)) !important;
-    }
-    thead th:nth-child(2), tbody td:nth-child(2){
-      background:linear-gradient(135deg, rgba(240,253,244,.96), rgba(187,247,208,.82)) !important;
-    }
-    thead th:nth-child(3), tbody td:nth-child(3){
-      background:linear-gradient(135deg, rgba(239,246,255,.96), rgba(191,219,254,.82)) !important;
-    }
-    thead th:nth-child(4), tbody td:nth-child(4){
-      background:linear-gradient(135deg, rgba(253,242,248,.96), rgba(251,207,232,.84)) !important;
-    }
-    thead th:nth-child(5), tbody td:nth-child(5){
-      background:linear-gradient(135deg, rgba(254,249,195,.96), rgba(253,224,71,.76)) !important;
-    }
-    thead th:nth-child(6), tbody td:nth-child(6){
-      background:linear-gradient(135deg, rgba(245,243,255,.96), rgba(221,214,254,.82)) !important;
-    }
-    thead th:nth-child(7), tbody td:nth-child(7){
-      background:linear-gradient(135deg, rgba(236,253,245,.96), rgba(167,243,208,.82)) !important;
-    }
-
-    tbody tr:hover td{
-      filter:brightness(1.06);
-      box-shadow:inset 0 0 0 9999px rgba(255,255,255,.16);
-    }
-
-    th{
-      color:#2b0011 !important;
-      border-bottom:2px solid rgba(136,19,71,.3) !important;
-    }
-
-    td{
-      border-bottom:1px solid rgba(136,19,71,.18) !important;
-    }
-
-    button{
-      border-color:rgba(136,19,71,.28) !important;
-    }
-
-
-    /* === MOBILE FULL RESPONSIVE VERSION BY JARVIS === */
-    html{
-      width:100%;
-      max-width:100%;
-      overflow-x:hidden;
-      -webkit-text-size-adjust:100%;
-    }
-
-    body{
-      width:100%;
-      max-width:100%;
-      overflow-x:hidden !important;
-      touch-action:manipulation;
-    }
-
-    .app{
-      width:100%;
-      max-width:1280px;
-    }
-
-    .topbar{
-      grid-template-columns:repeat(3, 1fr);
-    }
-
-    .panel-head,
-    .month-control,
-    .form,
-    .tools,
-    .paste-box{
-      width:100%;
-    }
-
-    .form{
-      align-items:stretch;
-    }
-
-    .table-wrap{
-      max-width:100%;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:thin;
-    }
-
-    .table-wrap::before{
-      content:"Geser tabel ke kanan/kiri jika diperlukan";
-      display:none;
-      padding:10px 14px;
-      color:#2b0011;
-      font-size:12px;
-      font-weight:950;
-      background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,211,227,.8));
-      border-bottom:1px solid rgba(136,19,71,.18);
-    }
-
-    .actions button{
-      min-width:78px;
-    }
-
-    @media(max-width:950px){
       .app{max-width:100%;}
-      .hero{
-        grid-template-columns:1fr !important;
-        gap:16px;
-      }
-      .topbar{
-        grid-template-columns:repeat(3, 1fr) !important;
-        gap:10px;
-      }
-      .box{
-        padding:14px;
-        border-radius:20px;
-      }
-      .box small{
-        font-size:10.5px;
-        line-height:1.35;
-      }
-      .box strong{
-        font-size:clamp(17px, 4vw, 26px);
-        word-break:break-word;
-      }
-      .form{
-        grid-template-columns:1fr 1fr !important;
-      }
-      .form input:nth-child(3),
-      .form input:nth-child(4),
-      .form button{
-        grid-column:1 / -1;
-      }
-      .panel-head{
-        gap:12px;
-      }
-      .month-control{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-      }
-      .month-title{
-        grid-column:1 / -1;
-        order:-1;
-        min-width:0;
-        width:100%;
-      }
-      .month-control button{
-        width:100%;
-      }
+      .hero{grid-template-columns:1fr !important; gap:16px;}
+      .hero-img{height:215px}
+      .topbar{grid-template-columns:repeat(3, 1fr) !important; gap:10px;}
+      .box{padding:14px; border-radius:20px;}
+      .box small{font-size:10.5px; line-height:1.35;}
+      .box strong{font-size:clamp(17px, 4vw, 26px); word-break:break-word;}
+      .form{grid-template-columns:1fr 1fr !important;}
+      .form input:nth-child(3), .form input:nth-child(4), .form button{grid-column:1 / -1;}
+      .panel-head{align-items:stretch; gap:12px;}
+      .month-control{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+      .month-title{grid-column:1 / -1; order:-1; min-width:0; width:100%;}
+      .month-control button{width:100%;}
     }
 
     @media(max-width:680px){
-      body{
-        padding:8px !important;
-        background-attachment:fixed;
-      }
-
-      .hero{
-        padding:14px !important;
-        border-radius:22px !important;
-      }
-
-      .badge{
-        font-size:11px;
-        padding:7px 10px;
-        margin-bottom:10px;
-      }
-
-      .hero h1{
-        font-size:28px !important;
-        line-height:1.05;
-        letter-spacing:-.7px;
-      }
-
-      .hero p{
-        font-size:13px;
-        line-height:1.55;
-      }
-
-      .hero-img-wrap{
-        border-radius:20px;
-      }
-
-      .hero-img{
-        height:160px !important;
-        border-radius:18px;
-      }
-
-      .topbar{
-        grid-template-columns:1fr !important;
-        margin-top:12px;
-      }
-
-      .box{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:12px;
-        min-height:76px;
-      }
-
-      .box small{
-        margin-bottom:0;
-        max-width:48%;
-      }
-
-      .box strong{
-        text-align:right;
-        max-width:52%;
-      }
-
-      .panel{
-        margin-top:12px;
-        border-radius:22px;
-      }
-
-      .panel-head{
-        padding:12px;
-      }
-
-      .month-control{
-        grid-template-columns:1fr !important;
-      }
-
-      .month-title{
-        font-size:15px;
-        padding:10px 12px;
-        border-radius:14px;
-      }
-
-      button,
-      input,
-      select,
-      textarea{
-        min-height:46px;
-        font-size:15px;
-        border-radius:14px;
-      }
-
-      button{
-        padding:11px 12px;
-      }
-
-      .form{
-        padding:12px;
-        grid-template-columns:1fr !important;
-        gap:10px;
-      }
-
-      .form input,
-      .form select,
-      .form button{
-        grid-column:auto !important;
-      }
-
-      .table-wrap::before{
-        display:block;
-      }
-
-      table{
-        min-width:0 !important;
-        width:100%;
-        border-collapse:separate;
-        border-spacing:0 12px;
-        padding:0 10px 10px;
-      }
-
-      thead{
-        display:none;
-      }
-
-      tbody,
-      tr,
-      td{
-        display:block;
-        width:100%;
-      }
-
-      tbody tr{
-        border:1px solid rgba(136,19,71,.24);
-        border-radius:18px;
-        overflow:hidden;
-        box-shadow:0 12px 30px rgba(185,28,92,.18);
-        background:rgba(255,255,255,.55);
-      }
-
-      td{
-        min-height:44px;
-        padding:11px 12px 11px 43% !important;
-        position:relative;
-        text-align:right;
-        border-bottom:1px solid rgba(136,19,71,.15) !important;
-        word-break:break-word;
-      }
-
-      td:last-child{
-        border-bottom:none !important;
-        padding-left:12px !important;
-      }
-
-      td::before{
-        position:absolute;
-        left:12px;
-        top:11px;
-        width:36%;
-        text-align:left;
-        font-size:11px;
-        line-height:1.3;
-        text-transform:uppercase;
-        letter-spacing:.5px;
-        color:#2b0011;
-        font-weight:950;
-      }
-
+      body{padding:8px !important; background-attachment:fixed;}
+      .hero{padding:14px !important; border-radius:22px !important;}
+      .badge{font-size:11px; padding:7px 10px; margin-bottom:10px;}
+      .hero h1{font-size:28px !important; line-height:1.05; letter-spacing:-.7px;}
+      .hero p{font-size:13px; line-height:1.55;}
+      .hero-img-wrap{border-radius:20px;}
+      .hero-img{height:160px !important; border-radius:18px;}
+      .topbar{grid-template-columns:1fr !important; margin-top:12px;}
+      .box{display:flex; justify-content:space-between; align-items:center; gap:12px; min-height:76px;}
+      .box small{margin-bottom:0; max-width:48%;}
+      .box strong{text-align:right; max-width:52%;}
+      .panel{margin-top:12px; border-radius:22px;}
+      .panel-head{padding:12px;}
+      .month-control{grid-template-columns:1fr !important;}
+      .month-title{font-size:15px; padding:10px 12px; border-radius:14px;}
+      button, input, select, textarea{min-height:46px; font-size:15px; border-radius:14px;}
+      button{padding:11px 12px;}
+      .form{padding:12px; grid-template-columns:1fr !important; gap:10px;}
+      .form input, .form select, .form button{grid-column:auto !important;}
+      .table-wrap::before{display:block;}
+      table{min-width:0 !important; width:100%; border-collapse:separate; border-spacing:0 12px; padding:0 10px 10px;}
+      thead{display:none;}
+      tbody, tr, td{display:block; width:100%;}
+      tbody tr{border:1px solid rgba(136,19,71,.24); border-radius:18px; overflow:hidden; box-shadow:0 12px 30px rgba(185,28,92,.18); background:rgba(255,255,255,.55);}
+      td{min-height:44px; padding:11px 12px 11px 43% !important; position:relative; text-align:right; border-bottom:1px solid rgba(136,19,71,.15) !important; word-break:break-word;}
+      td:last-child{border-bottom:none !important; padding-left:12px !important;}
+      td::before{position:absolute; left:12px; top:11px; width:36%; text-align:left; font-size:11px; line-height:1.3; text-transform:uppercase; letter-spacing:.5px; color:#2b0011; font-weight:950;}
       td:nth-child(1)::before{content:"Tanggal";}
       td:nth-child(2)::before{content:"Bulan";}
       td:nth-child(3)::before{content:"Jenis";}
@@ -937,114 +550,38 @@
       td:nth-child(5)::before{content:"Jumlah";}
       td:nth-child(6)::before{content:"Total";}
       td:nth-child(7)::before{content:"Aksi";}
-
-      .actions{
-        display:grid;
-        grid-template-columns:1fr;
-        gap:8px;
-        margin-top:4px;
-      }
-
-      .actions button{
-        width:100%;
-        min-width:0;
-      }
-
-      .empty{
-        padding:24px 12px;
-        font-size:14px;
-      }
-
-      .tools{
-        padding:12px;
-      }
-
-      .paste-box{
-        padding:13px;
-        border-radius:18px;
-      }
-
-      .paste-box h3{
-        font-size:17px;
-      }
-
-      .paste-box p{
-        font-size:12.5px;
-      }
-
-      textarea{
-        min-height:130px;
-      }
-
-      .toast{
-        left:10px;
-        right:10px;
-        bottom:12px;
-        text-align:center;
-        font-size:14px;
-      }
-
-      #liveStatus{
-        width:100%;
-        text-align:center;
-        font-size:12px;
-      }
+      .actions{display:grid; grid-template-columns:1fr; gap:8px; margin-top:4px;}
+      .actions button{width:100%; min-width:0;}
+      .empty{padding:24px 12px; font-size:14px;}
+      .tools{padding:12px;}
+      .paste-box{padding:13px; border-radius:18px;}
+      .paste-box h3{font-size:17px;}
+      .paste-box p{font-size:12.5px;}
+      textarea{min-height:130px;}
+      .toast{left:10px; right:10px; bottom:12px; text-align:center; font-size:14px;}
     }
 
     @media(max-width:380px){
-      .hero h1{
-        font-size:24px !important;
-      }
-      .box{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .box small,
-      .box strong{
-        max-width:100%;
-        text-align:left;
-      }
-      td{
-        padding-left:12px !important;
-        padding-top:33px !important;
-        text-align:left;
-      }
-      td::before{
-        width:auto;
-        right:12px;
-      }
+      .hero h1{font-size:24px !important;}
+      .box{flex-direction:column; align-items:flex-start;}
+      .box small, .box strong{max-width:100%; text-align:left;}
+      td{padding-left:12px !important; padding-top:33px !important; text-align:left;}
+      td::before{width:auto; right:12px;}
     }
-
-
-    /* Status Firebase disembunyikan, sistem live tetap berjalan */
-    #liveStatus{
-      display:none !important;
-    }
-
-    /* === END MOBILE FULL RESPONSIVE VERSION === */
-
-    /* === END CUSTOM EDIT === */
-
   </style>
 </head>
 
 <body>
   <div class="app">
-
     <section class="hero">
       <div>
-        <div class="badge"><span></span> FINANCE DASHBOARD PREMIUM</div>
+        <div class="badge" id="liveBadge"><span id="liveDot"></span><b id="liveText">MENGHUBUNGKAN LIVE...</b></div>
         <h1>Catatan Keuangan NADIRA & BILLY</h1>
-        <p>
-        </p>
+        <p></p>
       </div>
 
       <div class="hero-img-wrap">
-        <img
-          class="hero-img"
-          src="https://mariterbang.io/download/nZ8HSzRt.jpg"
-          alt="Gambar catatan keuangan"
-        />
+        <img class="hero-img" src="https://mariterbang.io/download/nZ8HSzRt.jpg" alt="Gambar catatan keuangan" />
       </div>
     </section>
 
@@ -1068,13 +605,10 @@
     <section class="panel">
       <div class="panel-head">
         <div class="month-control">
-          <button onclick="changeMonth(-1)">← Bulan Sebelumnya</button>
+          <button type="button" onclick="changeMonth(-1)">← Bulan Sebelumnya</button>
           <div class="month-title" id="monthTitle"></div>
-          <button onclick="changeMonth(1)">Bulan Berikutnya →</button>
-          <button class="btn-blue" onclick="goToday()">Hari Ini</button>
-        </div>
-
-        <div class="month-control">
+          <button type="button" onclick="changeMonth(1)">Bulan Berikutnya →</button>
+          <button type="button" class="btn-blue" onclick="goToday()">Hari Ini</button>
         </div>
       </div>
 
@@ -1087,9 +621,7 @@
         </select>
 
         <input type="text" id="descInput" placeholder="Catatan / keterangan..." required />
-
         <input type="number" id="amountInput" placeholder="Jumlah uang" min="0" required />
-
         <button class="btn-green" type="submit" id="saveBtn">Tambah</button>
       </form>
 
@@ -1106,57 +638,31 @@
               <th>Aksi</th>
             </tr>
           </thead>
-
           <tbody id="financeBody"></tbody>
         </table>
-
         <div class="empty" id="emptyText">Belum ada data bulan ini.</div>
       </div>
 
       <div class="tools">
         <div class="paste-box">
           <h3>Copy data pa</h3>
-          <p>
-            Format: Tanggal, Jenis, Keterangan, Jumlah.
-            Contoh: <b>2026-06-26, PEMASUKAN, Gaji, 500000</b>
-          </p>
-
+          <p>Format: Tanggal, Jenis, Keterangan, Jumlah. Contoh: <b>2026-06-26, PEMASUKAN, Gaji, 500000</b></p>
           <textarea id="pasteInput" placeholder="Paste data di sini..."></textarea>
-
           <br><br>
-
-          <button class="btn-purple" onclick="pasteData()">Paste Masuk Sistem</button>
+          <button type="button" class="btn-purple" onclick="pasteData()">Paste Masuk Sistem</button>
         </div>
       </div>
     </section>
   </div>
 
   <div class="toast" id="toast"></div>
+  <div id="liveStatus"></div>
 
-  <script type="module">
-    /*
-      FIREBASE LIVE MODE
-      1) Buka Firebase Console > Project settings > Your apps > Web app
-      2) Copy firebaseConfig lalu ganti bagian di bawah ini.
-      3) Firestore collection yang dipakai: finance_transactions
-    */
+  
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      setDoc,
-      doc,
-      deleteDoc,
-      getDocs,
-      query,
-      where,
-      orderBy,
-      onSnapshot,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDIynJCkKlBN0oHyqrPXppnEWahYGNJsZY",
       authDomain: "dedy-b7d09.firebaseapp.com",
@@ -1166,13 +672,12 @@
       appId: "1:908999792372:web:7ef11e8e6ad87ec242f0a1"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const financeRef = collection(db, "finance_transactions");
-
+    let db = null;
+    let financeRef = null;
     let transactions = [];
     let editingId = null;
     let unsubscribeLive = null;
+    let liveTimer = null;
 
     const now = new Date();
     let currentMonth = now.getMonth();
@@ -1200,12 +705,27 @@
       const toast = document.getElementById("toast");
       toast.textContent = text;
       toast.style.display = "block";
-      setTimeout(() => toast.style.display = "none", 2600);
+      setTimeout(() => toast.style.display = "none", 3200);
     }
 
     function setLiveStatus(text, ok=true){
-      // Status Firebase sengaja disembunyikan dari tampilan.
-      // Koneksi live tetap berjalan lewat onSnapshot di fungsi listenCurrentMonth().
+      const liveBadge = document.getElementById("liveBadge");
+      const liveText = document.getElementById("liveText");
+
+      if(liveText) liveText.textContent = text;
+
+      if(liveBadge){
+        liveBadge.classList.remove("live-ok", "live-error", "live-loading");
+
+        if(text.toLowerCase().includes("menghubungkan")){
+          liveBadge.classList.add("live-loading");
+        }else if(ok){
+          liveBadge.classList.add("live-ok");
+        }else{
+          liveBadge.classList.add("live-error");
+        }
+      }
+
       console.log(text);
     }
 
@@ -1232,7 +752,7 @@
         type: item.type,
         desc: item.desc,
         amount: Number(item.amount || 0),
-        updatedAt: serverTimestamp()
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
     }
 
@@ -1245,13 +765,12 @@
     }
 
     async function refreshCurrentMonthOnce(){
-      const q = query(
-        financeRef,
-        where("monthKey", "==", activeMonthKey()),
-        orderBy("date", "asc")
-      );
+      if(!financeRef) return;
 
-      const snapshot = await getDocs(q);
+      const snapshot = await financeRef
+        .where("monthKey", "==", activeMonthKey())
+        .get();
+
       transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
       render();
     }
@@ -1271,21 +790,25 @@
         return;
       }
 
+      if(!financeRef){
+        showToast("Firebase belum siap. Tunggu sampai LIVE hijau.");
+        return;
+      }
+
       saveBtn.disabled = true;
       const oldBtnText = saveBtn.textContent;
       saveBtn.textContent = "Menyimpan...";
 
       try{
         if(editingId){
-          await setDoc(doc(db, "finance_transactions", editingId), cleanTransactionData(item), { merge:true });
-          showToast("Data live berhasil diedit dan langsung muncul.");
+          await financeRef.doc(editingId).set(cleanTransactionData(item), { merge:true });
+          showToast("Data live berhasil diedit.");
         }else{
-          const savedRef = await addDoc(financeRef, {
+          const savedRef = await financeRef.add({
             ...cleanTransactionData(item),
-            createdAt: serverTimestamp()
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          // Optimistic update: data langsung ditampilkan tanpa perlu klik Hari Ini.
           const itemMonthKey = getMonthKey(item.date);
           if(itemMonthKey === activeMonthKey()){
             transactions = [
@@ -1295,10 +818,9 @@
             render();
           }
 
-          showToast("Data live berhasil ditambahkan dan langsung muncul.");
+          showToast("Data live berhasil ditambahkan.");
         }
 
-        // Bersihkan form langsung setelah data berhasil masuk, supaya kolom tidak tertinggal.
         editingId = null;
         saveBtn.textContent = "Tambah";
         saveBtn.className = "btn-green";
@@ -1306,45 +828,48 @@
         amountInput.value = "";
         typeInput.value = "PEMASUKAN";
         dateInput.valueAsDate = new Date();
-        descInput.blur();
-        amountInput.blur();
 
-        // Pastikan bulan tampilan mengikuti tanggal yang diinput, lalu paksa refresh sekali dari Firebase.
-        // Listener live tetap aktif, jadi user lain tetap bisa melihat data real-time.
         setActiveMonthFromDate(item.date);
         await refreshCurrentMonthOnce();
         listenCurrentMonth();
       }catch(error){
         console.error(error);
         saveBtn.textContent = oldBtnText;
-        showToast("Firebase error: cek config / rules Firestore.");
-        setLiveStatus("Firebase error", false);
+        const code = error && error.code ? error.code : "unknown";
+        setLiveStatus("LIVE ERROR: " + code, false);
+        showToast("Firebase error: " + code);
       }finally{
         saveBtn.disabled = false;
       }
     }
 
     function listenCurrentMonth(){
+      if(!financeRef) return;
       if(unsubscribeLive) unsubscribeLive();
+      if(liveTimer) clearTimeout(liveTimer);
 
       document.getElementById("monthTitle").textContent = monthName(currentMonth, currentYear);
-      setLiveStatus("Menghubungkan Firebase...", true);
+      setLiveStatus("MENGHUBUNGKAN LIVE...", true);
 
-      const q = query(
-        financeRef,
-        where("monthKey", "==", activeMonthKey()),
-        orderBy("date", "asc")
-      );
+      liveTimer = setTimeout(() => {
+        setLiveStatus("LIVE LAMA - CEK INTERNET/FIREBASE", false);
+        showToast("Firebase lama merespon. Coba refresh / cek koneksi HP.");
+      }, 9000);
 
-      unsubscribeLive = onSnapshot(q, (snapshot) => {
-        transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
-        render();
-        setLiveStatus("LIVE Firebase aktif", true);
-      }, (error) => {
-        console.error(error);
-        setLiveStatus("Firebase belum tersambung", false);
-        showToast("Gagal baca Firebase. Cek firebaseConfig dan Firestore Rules.");
-      });
+      unsubscribeLive = financeRef
+        .where("monthKey", "==", activeMonthKey())
+        .onSnapshot((snapshot) => {
+          if(liveTimer) clearTimeout(liveTimer);
+          transactions = snapshot.docs.map(d => ({ id:d.id, ...d.data() }));
+          render();
+          setLiveStatus("LIVE AKTIF - SEMUA BISA LIHAT", true);
+        }, (error) => {
+          if(liveTimer) clearTimeout(liveTimer);
+          console.error(error);
+          const code = error && error.code ? error.code : "unknown";
+          setLiveStatus("LIVE GAGAL: " + code, false);
+          showToast("Firebase gagal: " + code + ". Cek Rules / projectId / internet.");
+        });
     }
 
     function render(){
@@ -1446,11 +971,12 @@
       if(!yakin) return;
 
       try{
-        await deleteDoc(doc(db, "finance_transactions", id));
+        await financeRef.doc(id).delete();
         showToast("Data live berhasil dihapus.");
       }catch(error){
         console.error(error);
-        showToast("Gagal hapus data Firebase.");
+        const code = error && error.code ? error.code : "unknown";
+        showToast("Gagal hapus Firebase: " + code);
       }
     }
 
@@ -1487,6 +1013,11 @@
         return;
       }
 
+      if(!financeRef){
+        showToast("Firebase belum siap.");
+        return;
+      }
+
       const lines = raw.split(/\n+/);
       let added = 0;
 
@@ -1503,14 +1034,14 @@
         if(!["PEMASUKAN","PENGELUARAN"].includes(type)) continue;
         if(!desc || amount <= 0) continue;
 
-        await addDoc(financeRef, {
+        await financeRef.add({
           date,
           monthKey:getMonthKey(date),
           type,
           desc,
           amount,
-          createdAt:serverTimestamp(),
-          updatedAt:serverTimestamp()
+          createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt:firebase.firestore.FieldValue.serverTimestamp()
         });
         added++;
       }
@@ -1557,18 +1088,28 @@
     }
 
     async function clearMonth(){
+      if(!financeRef){
+        showToast("Firebase belum siap.");
+        return;
+      }
+
       const yakin = confirm(`Hapus semua data LIVE bulan ${monthName(currentMonth, currentYear)}?\n\nData akan hilang untuk semua orang.`);
       if(!yakin) return;
 
       try{
-        const q = query(financeRef, where("monthKey", "==", activeMonthKey()));
-        const snapshot = await getDocs(q);
-        const deletes = snapshot.docs.map(d => deleteDoc(doc(db, "finance_transactions", d.id)));
-        await Promise.all(deletes);
+        const snapshot = await financeRef.where("monthKey", "==", activeMonthKey()).get();
+        const batch = db.batch();
+
+        snapshot.docs.forEach(d => {
+          batch.delete(d.ref);
+        });
+
+        await batch.commit();
         showToast("Data live bulan ini berhasil dihapus.");
       }catch(error){
         console.error(error);
-        showToast("Gagal hapus bulan ini dari Firebase.");
+        const code = error && error.code ? error.code : "unknown";
+        showToast("Gagal hapus Firebase: " + code);
       }
     }
 
@@ -1587,6 +1128,30 @@
       listenCurrentMonth();
     }
 
+    function startFirebase(){
+      setLiveStatus("MENGHUBUNGKAN LIVE...", true);
+
+      setTimeout(() => {
+        if(typeof firebase === "undefined"){
+          setLiveStatus("LIVE GAGAL: FIREBASE CDN", false);
+          showToast("Script Firebase gagal dimuat. Cek internet/hosting/browser HP.");
+          return;
+        }
+
+        try{
+          firebase.initializeApp(firebaseConfig);
+          db = firebase.firestore();
+          financeRef = db.collection("finance_transactions");
+          listenCurrentMonth();
+        }catch(error){
+          console.error(error);
+          const code = error && error.code ? error.code : "unknown";
+          setLiveStatus("LIVE GAGAL: " + code, false);
+          showToast("Firebase init gagal: " + code);
+        }
+      }, 300);
+    }
+
     window.saveTransaction = saveTransaction;
     window.editItem = editItem;
     window.deleteItem = deleteItem;
@@ -1598,7 +1163,20 @@
     window.changeMonth = changeMonth;
     window.goToday = goToday;
 
-    listenCurrentMonth();
+    window.addEventListener("error", (event) => {
+      console.error("Browser error:", event.message);
+      setLiveStatus("ERROR HTML/JS", false);
+      showToast("Ada error JavaScript: " + event.message);
+    });
+
+    window.addEventListener("unhandledrejection", (event) => {
+      console.error("Promise error:", event.reason);
+      const code = event.reason && event.reason.code ? event.reason.code : "unknown";
+      setLiveStatus("ERROR: " + code, false);
+    });
+
+    startFirebase();
   </script>
+
 </body>
 </html>
