@@ -210,7 +210,30 @@
 
     .income::after{background:var(--green)}
     .expense::after{background:var(--red)}
-    .balance::after{background:var(--gold)}
+    .balance{
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.92) 0%, rgba(219,242,255,.88) 18%, rgba(125,211,252,.78) 42%, rgba(56,189,248,.72) 66%, rgba(186,230,253,.86) 100%);
+      border:1px solid rgba(14,165,233,.45);
+      box-shadow:
+        0 20px 55px rgba(14,165,233,.35),
+        inset 0 1px 0 rgba(255,255,255,.75),
+        inset 0 -18px 45px rgba(2,132,199,.18);
+    }
+    .balance::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.62) 24%, transparent 46%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0px, rgba(255,255,255,.18) 2px, transparent 2px, transparent 8px);
+      opacity:.75;
+    }
+    .balance::after{
+      background:linear-gradient(135deg, #e0f2fe, #38bdf8, #0ea5e9);
+      opacity:.42;
+      box-shadow:0 0 32px rgba(56,189,248,.65);
+    }
 
     .box small{
       display:block;
